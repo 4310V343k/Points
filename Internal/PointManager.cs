@@ -2,6 +2,7 @@
 using System.IO;
 using ArithFeather.Points.DataTypes;
 using ArithFeather.Points.Tools;
+using Exiled.API.Features;
 
 namespace ArithFeather.Points.Internal
 {
@@ -16,8 +17,7 @@ namespace ArithFeather.Points.Internal
 		{
 			PointLists.Clear();
 
-			if (!Directory.Exists(PointIO.FolderPath))
-				Directory.CreateDirectory(PointIO.FolderPath);
+			Directory.CreateDirectory(PointIO.FolderPath);
 
 			var files = Directory.GetFiles(PointIO.FolderPath, "*.txt");
 			var fileLength = files.Length;
@@ -27,10 +27,7 @@ namespace ArithFeather.Points.Internal
 				var filePath = files[i];
 				var list = PointIO.Open(filePath);
 
-				if (list != null)
-				{
-					PointLists.Add(Path.GetFileNameWithoutExtension(filePath), list);
-				}
+				PointLists.Add(Path.GetFileNameWithoutExtension(filePath), list);
 			}
 		}
 

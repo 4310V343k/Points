@@ -50,15 +50,25 @@ namespace ArithFeather.Points.DataTypes
 
 		private readonly uint _uniqueId;
 
-		public bool Equals(RawPoint other) => !(other is null) && other._uniqueId == this._uniqueId;
-
-		public override bool Equals(object obj) => obj is RawPoint point && point._uniqueId == this._uniqueId;
-
-		public static bool operator ==(RawPoint lhs, RawPoint rhs) => !(lhs is null) && lhs.Equals(rhs);
-
-		public static bool operator !=(RawPoint lhs, RawPoint rhs) => lhs is null || !lhs.Equals(rhs);
-
 		public override int GetHashCode() => _uniqueId.GetHashCode();
+
+		public override bool Equals(object other) => Equals(other as RawPoint);
+
+		public virtual bool Equals(RawPoint other)
+		{
+			if (other == null) { return false; }
+			if (object.ReferenceEquals(this, other)) { return true; }
+			return this._uniqueId == other._uniqueId;
+		}
+
+		public static bool operator ==(RawPoint item1, RawPoint item2)
+		{
+			if (object.ReferenceEquals(item1, item2)) { return true; }
+			if ((object)item1 == null || (object)item2 == null) { return false; }
+			return item1._uniqueId == item2._uniqueId;
+		}
+
+		public static bool operator !=(RawPoint item1, RawPoint item2) => !(item1 == item2);
 
 		#endregion
 	}

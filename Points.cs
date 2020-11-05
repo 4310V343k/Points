@@ -15,7 +15,7 @@ namespace ArithFeather.Points
 	/// </summary>
 	public sealed class Points : Plugin<Config>
 	{
-		private static readonly Version CurrentVersion = new Version(1, 0, 0);
+		private static readonly Version CurrentVersion = new Version(1, 0, 1);
 
 		private readonly Harmony _harmony = new Harmony($"exiled.points+ {CurrentVersion}");
 
@@ -49,17 +49,8 @@ namespace ArithFeather.Points
 		{
 			try
 			{
-#if DEBUG
-				var lastDebugStatus = Harmony.DEBUG;
-				Harmony.DEBUG = true;
-#endif
-
-				_harmony.PatchAll();
 				LoadSpawnPointPatch.OnLoadSpawnPoints += BeforeLoadingSpawnPoints;
-
-#if DEBUG
-				Harmony.DEBUG = lastDebugStatus;
-#endif
+				_harmony.PatchAll();
 
 				Log.Debug("Events patched successfully!", Loader.ShouldDebugBeShown);
 			}
@@ -71,12 +62,19 @@ namespace ArithFeather.Points
 
 		private void Unpatch()
 		{
-			Log.Debug("Unpatching events...", Loader.ShouldDebugBeShown);
+			try
+			{
+				Log.Debug("Unpatching events...", Loader.ShouldDebugBeShown);
 
-			_harmony.UnpatchAll();
-			LoadSpawnPointPatch.OnLoadSpawnPoints -= BeforeLoadingSpawnPoints;
+				_harmony.UnpatchAll();
+				LoadSpawnPointPatch.OnLoadSpawnPoints -= BeforeLoadingSpawnPoints;
 
-			Log.Debug("All events have been unpatched complete.", Loader.ShouldDebugBeShown);
+				Log.Debug("All events have been unpatched complete.", Loader.ShouldDebugBeShown);
+			}
+			catch (Exception exception)
+			{
+				Log.Error($"Unpatching failed! {exception}");
+			}
 		}
 
 		private void BeforeLoadingSpawnPoints()

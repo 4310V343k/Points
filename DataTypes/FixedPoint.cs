@@ -51,16 +51,26 @@ namespace ArithFeather.Points.DataTypes
 
 		private readonly uint _uniqueId;
 
-		public bool Equals(FixedPoint other) => !(other is null) && other._uniqueId == this._uniqueId;
-
-		public override bool Equals(object obj) => obj is FixedPoint point && point._uniqueId == this._uniqueId;
-
-		public static bool operator ==(FixedPoint lhs, FixedPoint rhs) => !(lhs is null) && lhs.Equals(rhs);
-
-		public static bool operator !=(FixedPoint lhs, FixedPoint rhs) => lhs is null || !lhs.Equals(rhs);
-
 		public override int GetHashCode() => _uniqueId.GetHashCode();
 
-#endregion
+		public override bool Equals(object other) => Equals(other as FixedPoint);
+
+		public virtual bool Equals(FixedPoint other)
+		{
+			if (other == null) { return false; }
+			if (object.ReferenceEquals(this, other)) { return true; }
+			return this._uniqueId == other._uniqueId;
+		}
+
+		public static bool operator ==(FixedPoint item1, FixedPoint item2)
+		{
+			if (object.ReferenceEquals(item1, item2)) { return true; }
+			if ((object)item1 == null || (object)item2 == null) { return false; }
+			return item1._uniqueId == item2._uniqueId;
+		}
+
+		public static bool operator !=(FixedPoint item1, FixedPoint item2) => !(item1 == item2);
+
+		#endregion
 	}
 }
