@@ -15,34 +15,35 @@ namespace ArithFeather.Points
 	/// </summary>
 	public sealed class Points : Plugin<Config>
 	{
-		private static readonly Version CurrentVersion = new Version(1, 0, 1);
+		private static readonly Version CurrentVersion = new Version(1, 0, 2);
 
 		private readonly Harmony _harmony = new Harmony($"exiled.points+ {CurrentVersion}");
 
 		public override Version Version => CurrentVersion;
 		public override string Author => "Arith";
 		public override PluginPriority Priority => PluginPriority.First;
+		public override Version RequiredExiledVersion => new Version(2, 1, 3);
 
 		public override void OnEnabled()
 		{
-			base.OnEnabled();
-
 			Patch();
 			Server.ReloadedConfigs += Server_ReloadedConfigs;
 			Server.SendingConsoleCommand += PointEditor.ServerEvents_SendingConsoleCommand;
 
 			Server_ReloadedConfigs();
+
+			base.OnEnabled();
 		}
 
 		public override void OnDisabled()
 		{
-			base.OnDisabled();
-
 			Unpatch();
 			Server.ReloadedConfigs -= Server_ReloadedConfigs;
 			Server.SendingConsoleCommand -= PointEditor.ServerEvents_SendingConsoleCommand;
 
 			Server_ReloadedConfigs();
+
+			base.OnDisabled();
 		}
 
 		private void Patch()
