@@ -64,6 +64,7 @@
     <Compile Include="DataTypes\FixedPoint.cs" />
     <Compile Include="DataTypes\RawPoint.cs" />
     <Compile Include="Internal\PointManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\PointIO.cs" />
     <Compile Include="DataTypes\PointList.cs" />
     <Compile Include="Tools\Tools.cs" />

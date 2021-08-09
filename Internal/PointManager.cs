@@ -2,44 +2,40 @@
 using System.IO;
 using Points.DataTypes;
 using Points.Tools;
-using Exiled.API.Features;
 
 namespace Points.Internal
 {
-	internal static class PointManager
-	{
-		public static readonly Dictionary<string, PointList> PointLists = new Dictionary<string, PointList>();
+    internal static class PointManager
+    {
+        public static readonly Dictionary<string, PointList> PointLists = new Dictionary<string, PointList>();
 
-		/// <summary>
-		/// Loads all the data from the text files into <see cref="PointLists"/>.
-		/// </summary>
-		public static void LoadData()
-		{
-			PointLists.Clear();
+        /// <summary>
+        ///     Loads all the data from the text files into <see cref="PointLists" />.
+        /// </summary>
+        public static void LoadData()
+        {
+            PointLists.Clear();
 
-			Directory.CreateDirectory(PointIO.FolderPath);
+            Directory.CreateDirectory(PointIO.FolderPath);
 
-			var files = Directory.GetFiles(PointIO.FolderPath, "*.txt");
-			var fileLength = files.Length;
+            var files = Directory.GetFiles(PointIO.FolderPath, "*.txt");
+            var fileLength = files.Length;
 
-			for (var i = 0; i < fileLength; i++)
-			{
-				var filePath = files[i];
-				var list = PointIO.Open(filePath);
+            for (var i = 0; i < fileLength; i++)
+            {
+                var filePath = files[i];
+                var list = PointIO.Open(filePath);
 
-				PointLists.Add(Path.GetFileNameWithoutExtension(filePath), list);
-			}
-		}
+                PointLists.Add(Path.GetFileNameWithoutExtension(filePath), list);
+            }
+        }
 
-		/// <summary>
-		/// This will populate all the <see cref="FixedPoint"/> information inside the <see cref="PointLists"/>.
-		/// </summary>
-		public static void SetupFixedPoints()
-		{
-			foreach (var list in PointLists)
-			{
-				list.Value.FixData();
-			}
-		}
-	}
+        /// <summary>
+        ///     This will populate all the <see cref="FixedPoint" /> information inside the <see cref="PointLists" />.
+        /// </summary>
+        public static void SetupFixedPoints()
+        {
+            foreach (var list in PointLists) list.Value.FixData();
+        }
+    }
 }
