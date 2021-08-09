@@ -1,31 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using ArithFeather.Points.DataTypes;
-using ArithFeather.Points.Internal;
+using Points.DataTypes;
+using Points.Internal;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.Loader;
 using HarmonyLib;
 using Server = Exiled.Events.Handlers.Server;
 
-namespace ArithFeather.Points
+namespace Points
 {
 	/// <summary>
 	/// Use this class's static API to access point data.
 	/// </summary>
 	public sealed class Points : Plugin<Config>
 	{
-		private static readonly Version CurrentVersion = new Version(1, 0, 2);
-
-		private readonly Harmony _harmony = new Harmony($"exiled.points+ {CurrentVersion}");
-
-		public override Version Version => CurrentVersion;
+		public override Version Version => new Version(1, 1, 0);
 		public override string Author => "Arith";
 		public override PluginPriority Priority => PluginPriority.First;
 		public override Version RequiredExiledVersion => new Version(2, 1, 3);
+		
+		private Harmony _harmony;
 
 		public override void OnEnabled()
 		{
+			_harmony = new Harmony($"exiled.points.v{Version}.{DateTime.Now.Ticks}");
 			Patch();
 			Server.ReloadedConfigs += Server_ReloadedConfigs;
 			Server.SendingConsoleCommand += PointEditor.ServerEvents_SendingConsoleCommand;
@@ -42,6 +41,8 @@ namespace ArithFeather.Points
 			Server.SendingConsoleCommand -= PointEditor.ServerEvents_SendingConsoleCommand;
 
 			Server_ReloadedConfigs();
+
+			_harmony = null;
 
 			base.OnDisabled();
 		}

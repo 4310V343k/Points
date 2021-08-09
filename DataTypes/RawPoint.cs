@@ -2,7 +2,7 @@
 using Exiled.API.Enums;
 using UnityEngine;
 
-namespace ArithFeather.Points.DataTypes
+namespace Points.DataTypes
 {
 	/// <summary>
 	/// Represents a point that is a child of a <see cref="RoomType"/>.

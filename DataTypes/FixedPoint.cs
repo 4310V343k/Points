@@ -2,7 +2,7 @@
 using Exiled.API.Features;
 using UnityEngine;
 
-namespace ArithFeather.Points.DataTypes
+namespace Points.DataTypes
 {
 	/// <summary>
 	/// This represents a Vector3 that has been converted from local room space to world space for a specific <see cref="Room"/>.

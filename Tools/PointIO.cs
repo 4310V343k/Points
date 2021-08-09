@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
-using ArithFeather.Points.DataTypes;
+using Points.DataTypes;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using UnityEngine;
 
-namespace ArithFeather.Points.Tools
+namespace Points.Tools
 {
 	/// <summary>
 	/// For Saving and Loading FixedPoint Data.

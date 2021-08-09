@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Exiled.API.Features;
 
-namespace ArithFeather.Points.DataTypes
+namespace Points.DataTypes
 {
 	/// <summary>
 	/// This represents a collection of <see cref="RawPoint"/> which are used to make <see cref="FixedPoint"/>.

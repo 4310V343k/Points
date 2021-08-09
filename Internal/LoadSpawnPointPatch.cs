@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 
-namespace ArithFeather.Points.Internal
+namespace Points.Internal
 {
 	[HarmonyPatch(typeof(HostItemSpawner), "Spawn")]
 	internal static class LoadSpawnPointPatch

@@ -1,6 +1,6 @@
 ﻿using Exiled.API.Interfaces;
 
-namespace ArithFeather.Points
+namespace Points
 {
 	public sealed class Config : IConfig
 	{

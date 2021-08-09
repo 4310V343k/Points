@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using ArithFeather.Points.DataTypes;
-using ArithFeather.Points.Tools;
+using Points.DataTypes;
+using Points.Tools;
 using Exiled.API.Features;
 
-namespace ArithFeather.Points.Internal
+namespace Points.Internal
 {
 	internal static class PointManager
 	{

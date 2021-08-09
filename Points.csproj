@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -7,8 +7,8 @@
     <ProjectGuid>{AB7BDDD8-5FF5-4B17-A0B3-CB572D7C9243}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ArithFeather.Points</RootNamespace>
-    <AssemblyName>Points</AssemblyName>
+    <RootNamespace>Points</RootNamespace>
+    <AssemblyName>0Points</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -23,88 +23,38 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Assembly-CSharp" HintPath="$(SCPSL)\Assembly-CSharp-Publicized.dll" Private="false" />
-    <Reference Include="Assembly-CSharp-firstpass" HintPath="$(SCPSL)\Assembly-CSharp-firstpass.dll" Private="false" />
-    <Reference Include="DissonanceVoip" HintPath="$(SCPSL)\DissonanceVoip.dll" Private="false" />
-    <Reference Include="Exiled.API">
-      <HintPath>..\Exiled\bin\Debug\Exiled.API.dll</HintPath>
+    <PackageReference Include="EXILED" Version="2.11.1" />
+    <PackageReference Include="Lib.Harmony" Version="2.1.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>$(EXILED_REFERENCES)\Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Exiled.Bootstrap">
-      <HintPath>..\Exiled\bin\Debug\Exiled.Bootstrap.dll</HintPath>
-    </Reference>
-    <Reference Include="Exiled.Events">
-      <HintPath>..\Exiled\bin\Debug\Exiled.Events.dll</HintPath>
-    </Reference>
-    <Reference Include="Exiled.Loader">
-      <HintPath>..\Exiled\bin\Debug\Exiled.Loader.dll</HintPath>
-    </Reference>
-    <Reference Include="Exiled.Permissions">
-      <HintPath>..\Exiled\bin\Debug\Exiled.Permissions.dll</HintPath>
-    </Reference>
-    <Reference Include="Exiled.Updater">
-      <HintPath>..\Exiled\bin\Debug\Exiled.Updater.dll</HintPath>
-    </Reference>
-    <Reference Include="Mirror" HintPath="$(SCPSL)\Mirror.dll" Private="false" />
-    <Reference Include="NorthwoodLib" HintPath="$(SCPSL)\NorthwoodLib.dll" Private="false" />
-    <Reference Include="Smod2">
-      <HintPath>..\Smod2\Smod2\bin\Debug\net472\Smod2.dll</HintPath>
+    <Reference Include="Assembly-CSharp-Publicized">
+      <HintPath>$(EXILED_REFERENCES)\Assembly-CSharp-Publicized.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="UnityEngine">
-      <HintPath>$(UNITY)\UnityEngine.dll</HintPath>
+      <HintPath>$(EXILED_REFERENCES)\UnityEngine.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="UnityEngine.CoreModule" HintPath="$(UNITY)\UnityEngine.CoreModule.dll" Private="false" />
-    <Reference Include="UnityEngine.PhysicsModule" HintPath="$(UNITY)\UnityEngine.PhysicsModule.dll" Private="false" />
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(EXILED_REFERENCES)\UnityEngine.CoreModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>$(EXILED_REFERENCES)\UnityEngine.PhysicsModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
@@ -121,16 +71,5 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Lib.Harmony">
-      <Version>2.0.2</Version>
-    </PackageReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>xcopy /y /d  "$(TargetPath)" "$(SolutionDir)\OUTPUT_DLLS\"</PostBuildEvent>
-  </PropertyGroup>
 </Project>

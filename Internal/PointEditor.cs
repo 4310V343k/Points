@@ -1,11 +1,11 @@
 ﻿using System;
 using System.IO;
-using ArithFeather.Points.DataTypes;
-using ArithFeather.Points.Tools;
+using Points.DataTypes;
+using Points.Tools;
 using Exiled.Events.EventArgs;
 using UnityEngine;
 
-namespace ArithFeather.Points.Internal
+namespace Points.Internal
 {
 	internal static class PointEditor
 	{
@@ -32,37 +32,36 @@ namespace ArithFeather.Points.Internal
 			var commands = ev.Arguments;
 			var commandCount = commands.Count;
 
-			ev.Allow = false;
+			ev.IsAllowed = false;
 
-			if (commandCount > 0)
+			if (commandCount <= 0) return;
+			var currentCommand = commands[0].ToLowerInvariant().Trim();
+
+			switch (currentCommand)
 			{
-				var currentCommand = commands[0].ToLowerInvariant().Trim();
-
-				switch (currentCommand)
-				{
-					case "crosshair" when _useCrossHair:
+				case "crosshair" when _useCrossHair:
 					ev.ReturnMessage = "Already using crosshair";
 					break;
 
-					case "crosshair":
+				case "crosshair":
 					_useCrossHair = true;
 					ev.ReturnMessage = "Using crosshair";
 					break;
 
-					case "help":
+				case "help":
 					ev.ReturnMessage = HelpMessage;
 					break;
 
-					case "player" when !_useCrossHair:
+				case "player" when !_useCrossHair:
 					ev.ReturnMessage = "Already using player position";
 					break;
 
-					case "player":
+				case "player":
 					_useCrossHair = false;
 					ev.ReturnMessage = "Using player position";
 					break;
 
-					case "load":
+				case "load":
 					if (commandCount == 2)
 					{
 						currentCommand = commands[1];
@@ -77,13 +76,13 @@ namespace ArithFeather.Points.Internal
 
 					break;
 
-					case "save":
+				case "save":
 					ev.ReturnMessage = Save()
 						? "Save Successful"
 						: "Load/Create a list first!";
 					break;
 
-					case "add":
+				case "add":
 
 					if (commandCount > 2)
 					{
@@ -131,23 +130,18 @@ namespace ArithFeather.Points.Internal
 
 					break;
 
-					default:
+				default:
 					ev.ReturnMessage = "Invalid Command. Type .pnt help";
 					break;
-				}
-
 			}
 		}
 
 		private static bool Save()
 		{
-			if (_currentLoadedPointList != null)
-			{
-				PointIO.Save(_currentLoadedPointList, Path.Combine(PointIO.FolderPath, _currentLoadedName) + ".txt");
-				return true;
-			}
+			if (_currentLoadedPointList == null) return false;
+			PointIO.Save(_currentLoadedPointList, Path.Combine(PointIO.FolderPath, _currentLoadedName) + ".txt");
+			return true;
 
-			return false;
 		}
 
 		/// <summary>

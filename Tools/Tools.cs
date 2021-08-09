@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using Exiled.API.Features;
 using UnityEngine;
 
-namespace ArithFeather.Points.Tools
+namespace Points.Tools
 {
 	public static class Tools
 	{
