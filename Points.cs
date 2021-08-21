@@ -53,7 +53,7 @@ namespace Points
                 LoadSpawnPointPatch.OnLoadSpawnPoints += BeforeLoadingSpawnPoints;
                 _harmony.PatchAll();
 
-                Log.Debug("Events patched successfully!", Loader.ShouldDebugBeShown);
+                Log.Debug("Events patched successfully!", Config.Debug);
             }
             catch (Exception exception)
             {
@@ -65,12 +65,12 @@ namespace Points
         {
             try
             {
-                Log.Debug("Unpatching events...", Loader.ShouldDebugBeShown);
+                Log.Debug("Unpatching events...", Config.Debug);
 
                 _harmony.UnpatchAll();
                 LoadSpawnPointPatch.OnLoadSpawnPoints -= BeforeLoadingSpawnPoints;
 
-                Log.Debug("All events have been unpatched complete.", Loader.ShouldDebugBeShown);
+                Log.Debug("All events have been unpatched complete.", Config.Debug);
             }
             catch (Exception exception)
             {
