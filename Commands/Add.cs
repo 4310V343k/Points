@@ -7,12 +7,13 @@
     using Internal;
     using UnityEngine;
 
-    [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    public class Add : ICommand
+    internal sealed class Add : ICommand
     {
-        public string Command { get; } = "add";
-        public string[] Aliases { get; } = {"a"};
-        public string Description { get; } = "Creates a Point. Arg: ID without quotes. (Optional)";
+        private Add()
+        {
+        }
+
+        public static Add Instance { get; } = new Add();
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
@@ -56,5 +57,9 @@
                 $"Created point! Room: [{roomName}] ID: [{name}]";
             return true;
         }
+
+        public string Command { get; } = "add";
+        public string[] Aliases { get; } = {"a"};
+        public string Description { get; } = "Creates a Point. Arg: ID without quotes. (Optional)";
     }
 }

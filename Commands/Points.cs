@@ -20,12 +20,13 @@
             RegisterCommand(Load.Instance);
             RegisterCommand(Save.Instance);
             RegisterCommand(Mode.Instance);
+            RegisterCommand(Add.Instance);
         }
 
         protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender,
             out string response)
         {
-            response = "Subcommand not found. Available subcommands: load, save, mode.";
+            response = "Subcommand not found. Available subcommands: load, save, mode, add.";
             return false;
         }
     }
