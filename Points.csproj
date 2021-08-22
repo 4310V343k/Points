@@ -81,6 +81,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y /d  "$(TargetPath)" "$(SolutionDir)\lib\"</PostBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' == 'Windows_NT'">xcopy /y /d "$(TargetPath)" "$(SolutionDir)lib\"</PostBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' == 'UNIX'">rsync -av "$(TargetPath)" "$(SolutionDir)lib\"</PostBuildEvent>
   </PropertyGroup>
 </Project>
