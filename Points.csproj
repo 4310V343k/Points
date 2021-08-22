@@ -30,7 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EXILED" Version="2.11.1" />
+    <PackageReference Include="EXILED" Version="3.0.0-alpha.50" />
     <PackageReference Include="Lib.Harmony" Version="2.1.1" />
   </ItemGroup>
   <ItemGroup>
@@ -41,6 +41,9 @@
     <Reference Include="Assembly-CSharp-Publicized">
       <HintPath>$(EXILED_REFERENCES)\Assembly-CSharp-Publicized.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="CommandSystem.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\References\CommandSystem.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="UnityEngine">
@@ -57,8 +60,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Add.cs" />
+    <Compile Include="Commands\Load.cs" />
+    <Compile Include="Commands\Mode.cs" />
+    <Compile Include="Commands\Points.cs" />
+    <Compile Include="Commands\Save.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="Internal\LoadSpawnPointPatch.cs" />
     <Compile Include="Points.cs" />
     <Compile Include="Internal\PointEditor.cs" />
     <Compile Include="DataTypes\FixedPoint.cs" />

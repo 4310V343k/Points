@@ -1,15 +1,15 @@
-﻿using System;
-using Exiled.API.Features;
-using UnityEngine;
-
-namespace Points.DataTypes
+﻿namespace Points.DataTypes
 {
-	/// <summary>
-	///     This represents a Vector3 that has been converted from local room space to world space for a specific
-	///     <see cref="Room" />.
-	///     Use these to set position/rotation of objects in game.
-	/// </summary>
-	public class FixedPoint : IEquatable<FixedPoint>
+    using System;
+    using Exiled.API.Features;
+    using UnityEngine;
+
+    /// <summary>
+    ///     This represents a Vector3 that has been converted from local room space to world space for a specific
+    ///     <see cref="Room" />.
+    ///     Use these to set position/rotation of objects in game.
+    /// </summary>
+    public class FixedPoint : IEquatable<FixedPoint>
     {
         public FixedPoint(string id, Room room, Vector3 position, Vector3 rotation)
         {

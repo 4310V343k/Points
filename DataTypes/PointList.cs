@@ -1,25 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using Exiled.API.Features;
-
-namespace Points.DataTypes
+﻿namespace Points.DataTypes
 {
-	/// <summary>
-	///     This represents a collection of <see cref="RawPoint" /> which are used to make <see cref="FixedPoint" />.
-	///     You can acquire your plugin's PointList using <see cref="Points.GetPointList" />.
-	/// </summary>
-	public class PointList : IEquatable<PointList>
-    {
-	    /// <summary>
-	    ///     Points that have been converted from local room space to world space per room type.
-	    /// </summary>
-	    public readonly List<FixedPoint> FixedPoints = new List<FixedPoint>();
+    using System;
+    using System.Collections.Generic;
+    using Exiled.API.Features;
 
-	    /// <summary>
-	    ///     Points grouped by <see cref="FixedPoint.Id" />.
-	    ///     Points have been converted from local room space to world space per room type.
-	    /// </summary>
-	    public readonly Dictionary<string, List<FixedPoint>> IdGroupedFixedPoints =
+    /// <summary>
+    ///     This represents a collection of <see cref="RawPoint" /> which are used to make <see cref="FixedPoint" />.
+    ///     You can acquire your plugin's PointList using <see cref="Points.GetPointList" />.
+    /// </summary>
+    public class PointList : IEquatable<PointList>
+    {
+        /// <summary>
+        ///     Points that have been converted from local room space to world space per room type.
+        /// </summary>
+        public readonly List<FixedPoint> FixedPoints = new List<FixedPoint>();
+
+        /// <summary>
+        ///     Points grouped by <see cref="FixedPoint.Id" />.
+        ///     Points have been converted from local room space to world space per room type.
+        /// </summary>
+        public readonly Dictionary<string, List<FixedPoint>> IdGroupedFixedPoints =
             new Dictionary<string, List<FixedPoint>>();
 
         public readonly List<RawPoint> RawPoints;

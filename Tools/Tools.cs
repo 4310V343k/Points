@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using UnityEngine;
-
-namespace Points.Tools
+﻿namespace Points.Tools
 {
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using UnityEngine;
+
     public static class Tools
     {
         public static Vector3 RoundVector3(this Vector3 vector)

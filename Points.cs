@@ -1,32 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using Exiled.API.Enums;
-using Exiled.API.Features;
-using Exiled.Loader;
-using HarmonyLib;
-using Points.DataTypes;
-using Points.Internal;
-using Server = Exiled.Events.Handlers.Server;
-
-namespace Points
+﻿namespace Points
 {
-	/// <summary>
-	///     Use this class's static API to access point data.
-	/// </summary>
-	public sealed class Points : Plugin<Config>
+    using System;
+    using System.Collections.Generic;
+    using DataTypes;
+    using Exiled.API.Enums;
+    using Exiled.API.Features;
+    using Internal;
+    using MapGeneration;
+    using Server = Exiled.Events.Handlers.Server;
+
+    /// <summary>
+    ///     Use this class's static API to access point data.
+    /// </summary>
+    public sealed class Points : Plugin<Config>
     {
-        private Harmony _harmony;
-        public override Version Version => new Version(1, 1, 0);
-        public override string Author => "Arith";
+        public override Version Version => new Version(1, 2, 0);
+        public override string Author => "Arith && Remindme";
         public override PluginPriority Priority => PluginPriority.First;
-        public override Version RequiredExiledVersion => new Version(2, 1, 3);
+        public override Version RequiredExiledVersion => new Version(3, 0, 0);
 
         public override void OnEnabled()
         {
-            _harmony = new Harmony($"exiled.points.v{Version}.{DateTime.Now.Ticks}");
-            Patch();
             Server.ReloadedConfigs += Server_ReloadedConfigs;
-            Server.SendingConsoleCommand += PointEditor.ServerEvents_SendingConsoleCommand;
+            SeedSynchronizer.OnMapGenerated += BeforeLoadingSpawnPoints;
 
             Server_ReloadedConfigs();
 
@@ -35,47 +31,12 @@ namespace Points
 
         public override void OnDisabled()
         {
-            Unpatch();
             Server.ReloadedConfigs -= Server_ReloadedConfigs;
-            Server.SendingConsoleCommand -= PointEditor.ServerEvents_SendingConsoleCommand;
+            SeedSynchronizer.OnMapGenerated -= BeforeLoadingSpawnPoints;
 
             Server_ReloadedConfigs();
 
-            _harmony = null;
-
             base.OnDisabled();
-        }
-
-        private void Patch()
-        {
-            try
-            {
-                LoadSpawnPointPatch.OnLoadSpawnPoints += BeforeLoadingSpawnPoints;
-                _harmony.PatchAll();
-
-                Log.Debug("Events patched successfully!", Config.Debug);
-            }
-            catch (Exception exception)
-            {
-                Log.Error($"Patching failed! {exception}");
-            }
-        }
-
-        private void Unpatch()
-        {
-            try
-            {
-                Log.Debug("Unpatching events...", Config.Debug);
-
-                _harmony.UnpatchAll();
-                LoadSpawnPointPatch.OnLoadSpawnPoints -= BeforeLoadingSpawnPoints;
-
-                Log.Debug("All events have been unpatched complete.", Config.Debug);
-            }
-            catch (Exception exception)
-            {
-                Log.Error($"Unpatching failed! {exception}");
-            }
         }
 
         private void BeforeLoadingSpawnPoints()

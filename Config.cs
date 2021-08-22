@@ -1,7 +1,7 @@
-﻿using Exiled.API.Interfaces;
-
-namespace Points
+﻿namespace Points
 {
+    using Exiled.API.Interfaces;
+
     public sealed class Config : IConfig
     {
         public bool Debug { get; set; } = false;

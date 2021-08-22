@@ -1,13 +1,13 @@
-﻿using System;
-using Exiled.API.Enums;
-using UnityEngine;
-
-namespace Points.DataTypes
+﻿namespace Points.DataTypes
 {
-	/// <summary>
-	///     Represents a point that is a child of a <see cref="RoomType" />.
-	/// </summary>
-	public class RawPoint : IEquatable<RawPoint>
+    using System;
+    using Exiled.API.Enums;
+    using UnityEngine;
+
+    /// <summary>
+    ///     Represents a point that is a child of a <see cref="RoomType" />.
+    /// </summary>
+    public class RawPoint : IEquatable<RawPoint>
     {
         public RawPoint(string id, RoomType roomType, Vector3 position, Vector3 rotation)
         {

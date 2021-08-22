@@ -1,33 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Runtime.CompilerServices;
-using Exiled.API.Enums;
-using Exiled.API.Features;
-using Points.DataTypes;
-using UnityEngine;
-
-namespace Points.Tools
+﻿namespace Points.Tools
 {
-	/// <summary>
-	///     For Saving and Loading FixedPoint Data.
-	/// </summary>
-	public static class PointIO
-    {
-	    /// <summary>
-	    ///     The default path to the "RawPoint" folder where all point data is saved.
-	    /// </summary>
-	    public static readonly string FolderPath = Path.Combine(Paths.Configs, "PointsData");
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.IO;
+    using System.Runtime.CompilerServices;
+    using DataTypes;
+    using Exiled.API.Enums;
+    using Exiled.API.Features;
+    using UnityEngine;
 
-	    /// <summary>
-	    ///     Get a <see cref="PointList" /> from a file path only populated with <see cref="RawPoint" />.
-	    /// </summary>
-	    /// <param name="filePath">
-	    ///     The complete path to the file. You can use <see cref="FolderPath" /> to get the default RawPoint
-	    ///     folder.
-	    /// </param>
-	    public static PointList Open(string filePath)
+    /// <summary>
+    ///     For Saving and Loading FixedPoint Data.
+    /// </summary>
+    public static class PointIO
+    {
+        /// <summary>
+        ///     The default path to the "RawPoint" folder where all point data is saved.
+        /// </summary>
+        public static readonly string FolderPath = Path.Combine(Paths.Configs, "PointsData");
+
+        /// <summary>
+        ///     Get a <see cref="PointList" /> from a file path only populated with <see cref="RawPoint" />.
+        /// </summary>
+        /// <param name="filePath">
+        ///     The complete path to the file. You can use <see cref="FolderPath" /> to get the default RawPoint
+        ///     folder.
+        /// </param>
+        public static PointList Open(string filePath)
         {
             var data = new List<RawPoint>();
             try

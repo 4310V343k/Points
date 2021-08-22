@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using Points.DataTypes;
-using Points.Tools;
-
-namespace Points.Internal
+﻿namespace Points.Internal
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using DataTypes;
+    using Tools;
+
     internal static class PointManager
     {
         public static readonly Dictionary<string, PointList> PointLists = new Dictionary<string, PointList>();
