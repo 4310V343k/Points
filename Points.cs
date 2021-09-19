@@ -5,8 +5,9 @@
     using DataTypes;
     using Exiled.API.Enums;
     using Exiled.API.Features;
+    using Exiled.Events;
+    using Exiled.Events.Extensions;
     using Internal;
-    using MapGeneration;
     using Server = Exiled.Events.Handlers.Server;
 
     /// <summary>
@@ -14,6 +15,7 @@
     /// </summary>
     public sealed class Points : Plugin<Config>
     {
+        public static Points Singleton;
         public override Version Version => new Version(1, 2, 0);
         public override string Author => "Arith && Remindme";
         public override PluginPriority Priority => PluginPriority.First;
@@ -21,31 +23,35 @@
 
         public override void OnEnabled()
         {
-            Server.ReloadedConfigs += Server_ReloadedConfigs;
-            SeedSynchronizer.OnMapGenerated += BeforeLoadingSpawnPoints;
+            Singleton = this;
 
-            Server_ReloadedConfigs();
+            Server.ReloadedConfigs += OnReloadedConfigs;
+            Server.WaitingForPlayers += LoadSpawnPoints;
+
+            OnReloadedConfigs();
 
             base.OnEnabled();
         }
 
         public override void OnDisabled()
         {
-            Server.ReloadedConfigs -= Server_ReloadedConfigs;
-            SeedSynchronizer.OnMapGenerated -= BeforeLoadingSpawnPoints;
+            Server.ReloadedConfigs -= OnReloadedConfigs;
+            Server.WaitingForPlayers -= LoadSpawnPoints;
 
-            Server_ReloadedConfigs();
+            OnReloadedConfigs();
 
+            Singleton = null;
             base.OnDisabled();
         }
 
-        private void BeforeLoadingSpawnPoints()
+        public static void LoadSpawnPoints()
         {
+            Log.Debug("LoadSpawnPoints", Singleton.Config.Debug);
             PointManager.SetupFixedPoints();
-            OnLoadSpawnPoints?.Invoke();
+            LoadedSpawnPoints?.InvokeSafely();
         }
 
-        private void Server_ReloadedConfigs()
+        private void OnReloadedConfigs()
         {
             if (Config.IsEnabled)
             {
@@ -57,7 +63,7 @@
                     Log.Error(
                         "WARNING: Edit mode is enabled. Players are now able to use the console to create Points on the server.");
                 else
-                    Log.Warn("Edit mode is disabled.");
+                    Log.Debug("Edit mode is disabled.", Config.Debug);
             }
             else
             {
@@ -67,16 +73,14 @@
 
         #region API
 
-        public delegate void LoadSpawnPoints();
-
         /// <summary>
         ///     This event is invoked after <see cref="PointList" /> is populated (after level generation), and before spawn points
         ///     are loaded.
         /// </summary>
-        public static event LoadSpawnPoints OnLoadSpawnPoints;
+        public static event Events.CustomEventHandler LoadedSpawnPoints;
 
         /// <summary>
-        ///     This can be acquired any time after WaitingForPlayers or <see cref="OnLoadSpawnPoints" />.
+        ///     This can be acquired any time after WaitingForPlayers or <see cref="LoadedSpawnPoints" />.
         /// </summary>
         /// <param name="key">The key is the same as the file name that contains your points.</param>
         /// <returns>
