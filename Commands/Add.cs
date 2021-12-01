@@ -24,7 +24,7 @@
             }
 
             var name = arguments.Count > 0 ? arguments.At(0).ToLowerInvariant() : string.Empty;
-            var player = Player.Get((CommandSender) sender);
+            var player = Player.Get((CommandSender)sender);
 
             var scp049Component = player.GameObject.GetComponent<Scp049_2PlayerScript>();
             Vector3 position;
@@ -59,7 +59,7 @@
         }
 
         public string Command { get; } = "add";
-        public string[] Aliases { get; } = {"a"};
+        public string[] Aliases { get; } = { "a" };
         public string Description { get; } = "Creates a Point. Arg: ID without quotes. (Optional)";
     }
 }

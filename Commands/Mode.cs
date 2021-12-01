@@ -23,7 +23,7 @@
         }
 
         public string Command { get; } = "mode";
-        public string[] Aliases { get; } = {"m"};
+        public string[] Aliases { get; } = { "m" };
         public string Description { get; } = "Changes how the points will be added.\n";
     }
 }

@@ -22,7 +22,7 @@
         }
 
         public string Command { get; } = "save";
-        public string[] Aliases { get; } = {"s"};
+        public string[] Aliases { get; } = { "s" };
         public string Description { get; } = "Saves the currently loaded file.\n";
     }
 }

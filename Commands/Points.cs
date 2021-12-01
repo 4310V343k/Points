@@ -12,7 +12,7 @@
         }
 
         public override string Command { get; } = "points";
-        public override string[] Aliases { get; } = {"pnt"};
+        public override string[] Aliases { get; } = { "pnt" };
         public override string Description { get; } = "Manage Points";
 
         public override void LoadGeneratedCommands()

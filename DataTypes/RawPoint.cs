@@ -73,7 +73,7 @@
         public static bool operator ==(RawPoint item1, RawPoint item2)
         {
             if (ReferenceEquals(item1, item2)) return true;
-            if ((object) item1 == null || (object) item2 == null) return false;
+            if ((object)item1 == null || (object)item2 == null) return false;
             return item1._uniqueId == item2._uniqueId;
         }
 

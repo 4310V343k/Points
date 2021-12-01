@@ -75,7 +75,7 @@
         public static bool operator ==(FixedPoint item1, FixedPoint item2)
         {
             if (ReferenceEquals(item1, item2)) return true;
-            if ((object) item1 == null || (object) item2 == null) return false;
+            if ((object)item1 == null || (object)item2 == null) return false;
             return item1._uniqueId == item2._uniqueId;
         }
 

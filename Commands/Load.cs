@@ -23,7 +23,7 @@
         }
 
         public string Command { get; } = "load";
-        public string[] Aliases { get; } = {"l"};
+        public string[] Aliases { get; } = { "l" };
         public string Description { get; } = "Loads or creates a file. Arg: Filename without quotes. \n";
     }
 }
