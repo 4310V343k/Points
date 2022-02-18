@@ -2,7 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+
+    using Exiled.API.Enums;
     using Exiled.API.Features;
+
+    using UnityEngine;
 
     /// <summary>
     ///     This represents a collection of <see cref="RawPoint" /> which are used to make <see cref="FixedPoint" />.
@@ -46,38 +51,28 @@
             RoomGroupedFixedPoints.Clear();
             IdGroupedFixedPoints.Clear();
 
-            var pointsCount = RawPoints.Count;
-            var rooms = Map.Rooms;
-            var roomCount = rooms.Count;
+            FixedPoints.Capacity = RawPoints.Count;
+            RoomGroupedFixedPoints.Capacity = Room.List.Count();
 
-            FixedPoints.Capacity = pointsCount;
-            RoomGroupedFixedPoints.Capacity = roomCount;
-
-            for (var i = 0; i < roomCount; i++)
+            foreach (Room room in Room.List)
             {
-                var room = rooms[i];
-                var roomTransform = room.Transform;
-                var roomType = room.Type;
+                Transform roomTransform = room.Transform;
+                RoomType roomType = room.Type;
 
                 var pointList = new List<FixedPoint>();
 
-                for (var j = 0; j < pointsCount; j++)
+                foreach (RawPoint point in RawPoints)
                 {
-                    var point = RawPoints[j];
-                    var spawnRoomType = point.RoomType;
+                    if (roomType != point.RoomType) continue;
+                    var fixedPoint = new FixedPoint(
+                        point.Id,
+                        room,
+                        roomTransform.TransformPoint(point.Position),
+                        roomTransform.TransformDirection(point.Rotation)
+                    );
 
-                    if (roomType == spawnRoomType)
-                    {
-                        var fixedPoint = new FixedPoint(
-                            point.Id,
-                            room,
-                            roomTransform.TransformPoint(point.Position),
-                            roomTransform.TransformDirection(point.Rotation)
-                        );
-
-                        pointList.Add(fixedPoint);
-                        FixedPoints.Add(fixedPoint);
-                    }
+                    pointList.Add(fixedPoint);
+                    FixedPoints.Add(fixedPoint);
                 }
 
                 RoomGroupedFixedPoints.Add(pointList);
@@ -87,7 +82,7 @@
             var pointCount = FixedPoints.Count;
             for (var i = 0; i < pointCount; i++)
             {
-                var fixedPoint = FixedPoints[i];
+                FixedPoint fixedPoint = FixedPoints[i];
                 var id = fixedPoint.Id;
 
                 if (!IdGroupedFixedPoints.ContainsKey(id)) IdGroupedFixedPoints.Add(id, new List<FixedPoint>());

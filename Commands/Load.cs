@@ -1,8 +1,10 @@
 ﻿namespace Points.Commands
 {
     using System;
+
     using CommandSystem;
-    using Internal;
+
+    using global::Points.Internal;
 
     internal sealed class Load : ICommand
     {

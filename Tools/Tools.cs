@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Runtime.CompilerServices;
+
     using UnityEngine;
 
     public static class Tools
@@ -28,7 +29,7 @@
             {
                 var rnd = Random.Range(0, i + 1);
 
-                var value = list[rnd];
+                T value = list[rnd];
                 list[rnd] = list[i];
                 list[i] = value;
             }

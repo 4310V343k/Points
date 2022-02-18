@@ -1,8 +1,9 @@
 ﻿namespace Points.Internal
 {
     using System.IO;
-    using DataTypes;
-    using Tools;
+
+    using global::Points.DataTypes;
+    using global::Points.Tools;
 
     internal static class PointEditor
     {
@@ -34,7 +35,7 @@
         {
             if (!Directory.Exists(PointIO.FolderPath)) Directory.CreateDirectory(PointIO.FolderPath);
 
-            var pointList = PointIO.Open(Path.Combine(PointIO.FolderPath, name) + ".txt") ?? new PointList();
+            PointList pointList = PointIO.Open(Path.Combine(PointIO.FolderPath, name) + ".txt") ?? new PointList();
 
             CurrentLoadedPointList = pointList;
             _currentLoadedName = name;

@@ -2,8 +2,9 @@
 {
     using System.Collections.Generic;
     using System.IO;
-    using DataTypes;
-    using Tools;
+
+    using global::Points.DataTypes;
+    using global::Points.Tools;
 
     internal static class PointManager
     {
@@ -24,7 +25,7 @@
             for (var i = 0; i < fileLength; i++)
             {
                 var filePath = files[i];
-                var list = PointIO.Open(filePath);
+                PointList list = PointIO.Open(filePath);
 
                 PointLists.Add(Path.GetFileNameWithoutExtension(filePath), list);
             }

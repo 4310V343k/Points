@@ -5,9 +5,12 @@
     using System.Globalization;
     using System.IO;
     using System.Runtime.CompilerServices;
-    using DataTypes;
+
     using Exiled.API.Enums;
     using Exiled.API.Features;
+
+    using global::Points.DataTypes;
+
     using UnityEngine;
 
     /// <summary>
@@ -33,7 +36,7 @@
             try
             {
                 if (FileManager.FileExists(filePath))
-                    using (var reader = File.OpenText(filePath))
+                    using (StreamReader reader = File.OpenText(filePath))
                     {
                         while (!reader.EndOfStream)
                         {
@@ -54,14 +57,14 @@
 
                             var id = sData[0].Trim();
 
-                            var room = Enum.TryParse<RoomType>(sData[1].Trim(), true, out var roomType)
+                            RoomType room = Enum.TryParse(sData[1].Trim(), true, out RoomType roomType)
                                 ? roomType
                                 : RoomType.Unknown;
 
                             if (room == RoomType.Unknown) Log.Warn($"Room unknown: [{item}]");
 
-                            if (TryParseVector3(sData[2].Trim(), out var position) &&
-                                TryParseVector3(sData[3].Trim(), out var rotation))
+                            if (TryParseVector3(sData[2].Trim(), out Vector3 position) &&
+                                TryParseVector3(sData[3].Trim(), out Vector3 rotation))
                                 data.Add(new RawPoint(id, room, position, rotation));
                             else
                                 ThrowLoadError(item, "Vector3 data is invalid.");
@@ -99,10 +102,10 @@
                 var data = pointList.RawPoints;
                 using (var writer = new StreamWriter(File.Create(filePath)))
                 {
-                    foreach (var point in data)
+                    foreach (RawPoint point in data)
                     {
-                        var pos = point.Position.RoundVector3();
-                        var rot = point.Rotation.RoundVector3();
+                        Vector3 pos = point.Position.RoundVector3();
+                        Vector3 rot = point.Rotation.RoundVector3();
                         writer.WriteLine(
                             $"{point.Id}:{point.RoomType}:{pos.x.ToString(culture)},{pos.y.ToString(culture)},{pos.z.ToString(culture)}:{rot.x.ToString(culture)},{rot.y.ToString(culture)},{rot.z.ToString(culture)}");
                     }

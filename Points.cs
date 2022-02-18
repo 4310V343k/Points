@@ -2,12 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
-    using DataTypes;
+
     using Exiled.API.Enums;
     using Exiled.API.Features;
     using Exiled.Events;
     using Exiled.Events.Extensions;
-    using Internal;
+
+    using global::Points.DataTypes;
+    using global::Points.Internal;
+
     using Server = Exiled.Events.Handlers.Server;
 
     /// <summary>
@@ -88,7 +91,7 @@
         /// </returns>
         public static PointList GetPointList(string key)
         {
-            if (PointManager.PointLists.TryGetValue(key, out var pointsList)) return pointsList;
+            if (PointManager.PointLists.TryGetValue(key, out PointList pointsList)) return pointsList;
 
             Log.Warn($"Point List: '{key}' does not exist, creating one.");
             pointsList = new PointList(new List<RawPoint>());

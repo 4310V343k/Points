@@ -1,7 +1,9 @@
 ﻿namespace Points.DataTypes
 {
     using System;
+
     using Exiled.API.Features;
+
     using UnityEngine;
 
     /// <summary>

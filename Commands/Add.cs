@@ -1,10 +1,15 @@
 ﻿namespace Points.Commands
 {
     using System;
+
     using CommandSystem;
-    using DataTypes;
+
+    using Exiled.API.Enums;
     using Exiled.API.Features;
-    using Internal;
+
+    using global::Points.DataTypes;
+    using global::Points.Internal;
+
     using UnityEngine;
 
     internal sealed class Add : ICommand
@@ -24,7 +29,7 @@
             }
 
             var name = arguments.Count > 0 ? arguments.At(0).ToLowerInvariant() : string.Empty;
-            var player = Player.Get((CommandSender)sender);
+            Player player = Player.Get((CommandSender)sender);
 
             var scp049Component = player.GameObject.GetComponent<Scp049_2PlayerScript>();
             Vector3 position;
@@ -33,22 +38,22 @@
             if (PointEditor.UseCrossHair)
             {
                 var scp106Component = player.GameObject.GetComponent<Scp106PlayerScript>();
-                var cameraRotation = scp049Component.plyCam.transform.forward;
+                Vector3 cameraRotation = scp049Component.plyCam.transform.forward;
                 Physics.Raycast(scp049Component.plyCam.transform.position, cameraRotation,
-                    out var where,
+                    out RaycastHit where,
                     40f, scp106Component.teleportPlacementMask);
                 rotation = new Vector3(-cameraRotation.x, cameraRotation.y, -cameraRotation.z);
                 position = where.point + Vector3.up * 0.1f;
             }
             else
             {
-                var forward = scp049Component.plyCam.transform.forward;
+                Vector3 forward = scp049Component.plyCam.transform.forward;
                 rotation = new Vector3(-forward.x, forward.y, -forward.z);
                 position = player.Position + Vector3.up * 0.1f;
             }
 
-            var closestRoom = player.CurrentRoom;
-            var roomName = closestRoom.Type;
+            Room closestRoom = player.CurrentRoom;
+            RoomType roomName = closestRoom.Type;
 
             PointEditor.CurrentLoadedPointList.RawPoints.Add(new RawPoint(name, roomName,
                 closestRoom.Transform.InverseTransformPoint(position),

@@ -1,6 +1,7 @@
 ﻿namespace Points.Commands
 {
     using System;
+
     using CommandSystem;
 
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
