@@ -11,6 +11,8 @@
     using global::Points.DataTypes;
     using global::Points.Internal;
 
+    using MEC;
+
     using Server = Exiled.Events.Handlers.Server;
 
     /// <summary>
@@ -19,10 +21,10 @@
     public sealed class Points : Plugin<Config>
     {
         public static Points Singleton;
-        public override Version Version => new Version(1, 2, 0);
+        public override Version Version => new Version(1, 3, 0);
         public override string Author => "Arith && Remindme";
         public override PluginPriority Priority => PluginPriority.First;
-        public override Version RequiredExiledVersion => new Version(3, 0, 0);
+        public override Version RequiredExiledVersion => new Version(5, 0, 0);
 
         public override void OnEnabled()
         {
@@ -30,8 +32,6 @@
 
             Server.ReloadedConfigs += OnReloadedConfigs;
             Server.WaitingForPlayers += LoadSpawnPoints;
-
-            OnReloadedConfigs();
 
             base.OnEnabled();
         }
@@ -47,11 +47,15 @@
             base.OnDisabled();
         }
 
-        public static void LoadSpawnPoints()
+        public void LoadSpawnPoints()
         {
-            Log.Debug("LoadSpawnPoints", Singleton.Config.Debug);
-            PointManager.SetupFixedPoints();
-            LoadedSpawnPoints?.InvokeSafely();
+            Timing.CallDelayed(1f, () =>
+            {
+                OnReloadedConfigs();
+                Log.Debug("LoadSpawnPoints", Singleton.Config.Debug);
+                PointManager.SetupFixedPoints();
+                LoadedSpawnPoints?.InvokeSafely();
+            });
         }
 
         private void OnReloadedConfigs()
