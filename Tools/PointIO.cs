@@ -59,9 +59,9 @@
 
                             RoomType room = Enum.TryParse(sData[1].Trim(), true, out RoomType roomType)
                                 ? roomType
-                                : RoomType.Unknown;
+                                : RoomType.Unnamed;
 
-                            if (room == RoomType.Unknown) Log.Warn($"Room unknown: [{item}]");
+                            if (room == RoomType.Unnamed) Log.Warn($"Room unknown: [{item}]");
 
                             if (TryParseVector3(sData[2].Trim(), out Vector3 position) &&
                                 TryParseVector3(sData[3].Trim(), out Vector3 rotation))

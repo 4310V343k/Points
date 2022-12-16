@@ -37,13 +37,14 @@
 
             if (PointEditor.UseCrossHair)
             {
-                var scp106Component = player.GameObject.GetComponent<Scp106PlayerScript>();
-                Vector3 cameraRotation = scp049Component.plyCam.transform.forward;
-                Physics.Raycast(scp049Component.plyCam.transform.position, cameraRotation,
-                    out RaycastHit where,
-                    40f, scp106Component.teleportPlacementMask);
-                rotation = new Vector3(-cameraRotation.x, cameraRotation.y, -cameraRotation.z);
-                position = where.point + Vector3.up * 0.1f;
+                Physics.Raycast(player.CameraTransform.position, player.CameraTransform.eulerAngles,
+                    out var hit,
+                    40f, 134217729); // hardcoded but with love
+                
+                // this feels wrong but eh
+                Vector3 forward = player.CameraTransform.forward;
+                rotation = new Vector3(-forward.x, forward.y, -forward.z);
+                position = hit.point + Vector3.up * 0.1f;
             }
             else
             {
