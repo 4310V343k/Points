@@ -20,20 +20,7 @@
         /// </summary>
         public readonly List<FixedPoint> FixedPoints = new List<FixedPoint>();
 
-        /// <summary>
-        ///     Points grouped by <see cref="FixedPoint.Id" />.
-        ///     Points have been converted from local room space to world space per room type.
-        /// </summary>
-        public readonly Dictionary<string, List<FixedPoint>> IdGroupedFixedPoints =
-            new Dictionary<string, List<FixedPoint>>();
-
         public readonly List<RawPoint> RawPoints;
-
-        /// <summary>
-        ///     Points grouped by the Room's index in <see cref="Map.Rooms" />.
-        ///     Points have been converted from local room space to world space per room type.
-        /// </summary>
-        public readonly List<List<FixedPoint>> RoomGroupedFixedPoints = new List<List<FixedPoint>>();
 
         public PointList(List<RawPoint> rawPoints = null)
         {
@@ -47,47 +34,25 @@
         /// </summary>
         public void FixData()
         {
+            Log.Debug($"Fixing data for id {this._uniqueId}", Points.Singleton.Config.Debug);
             FixedPoints.Clear();
-            RoomGroupedFixedPoints.Clear();
-            IdGroupedFixedPoints.Clear();
 
             FixedPoints.Capacity = RawPoints.Count;
-            RoomGroupedFixedPoints.Capacity = Room.List.Count();
 
-            foreach (Room room in Room.List)
+            Log.Debug($"Room.List.Count() = {Room.List.Count()}");
+            foreach (RawPoint point in RawPoints)
             {
-                Transform roomTransform = room.Transform;
-                RoomType roomType = room.Type;
-
-                var pointList = new List<FixedPoint>();
-
-                foreach (RawPoint point in RawPoints)
+                var rooms = Room.Get(r => r.Type == point.RoomType);
+                foreach (Room room in rooms)
                 {
-                    if (roomType != point.RoomType) continue;
                     var fixedPoint = new FixedPoint(
                         point.Id,
                         room,
-                        roomTransform.TransformPoint(point.Position),
-                        roomTransform.TransformDirection(point.Rotation)
+                        room.Transform.TransformPoint(point.Position),
+                        room.Transform.TransformDirection(point.Rotation)
                     );
-
-                    pointList.Add(fixedPoint);
                     FixedPoints.Add(fixedPoint);
                 }
-
-                RoomGroupedFixedPoints.Add(pointList);
-            }
-
-            // Create Id organized rawPoints.
-            var pointCount = FixedPoints.Count;
-            for (var i = 0; i < pointCount; i++)
-            {
-                FixedPoint fixedPoint = FixedPoints[i];
-                var id = fixedPoint.Id;
-
-                if (!IdGroupedFixedPoints.ContainsKey(id)) IdGroupedFixedPoints.Add(id, new List<FixedPoint>());
-
-                IdGroupedFixedPoints[id].Add(fixedPoint);
             }
         }
 
