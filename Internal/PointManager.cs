@@ -1,7 +1,10 @@
 ﻿namespace Points.Internal
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
+
+    using Exiled.API.Features;
 
     using global::Points.DataTypes;
     using global::Points.Tools;
@@ -27,6 +30,8 @@
                 var filePath = files[i];
                 PointList list = PointIO.Open(filePath);
 
+                Log.Debug($"Got a raw point list: {string.Join(", ", list.RawPoints)}", Points.Singleton.Config.Debug);
+
                 PointLists.Add(Path.GetFileNameWithoutExtension(filePath), list);
             }
         }
@@ -36,7 +41,12 @@
         /// </summary>
         public static void SetupFixedPoints()
         {
-            foreach (var list in PointLists) list.Value.FixData();
+            foreach (var list in PointLists)
+            {
+                Log.Debug($"Trying to fix data in {list.Key} with points: {string.Join(", ", list.Value.RawPoints)}", Points.Singleton.Config.Debug);
+                list.Value.FixData();
+                Log.Debug($"Fixed the data. Fixed points: {string.Join(", ", list.Value.FixedPoints)}", Points.Singleton.Config.Debug);
+            }
         }
     }
 }
