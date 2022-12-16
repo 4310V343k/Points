@@ -6,10 +6,10 @@
     using System.IO;
     using System.Runtime.CompilerServices;
 
+    using DataTypes;
+
     using Exiled.API.Enums;
     using Exiled.API.Features;
-
-    using global::Points.DataTypes;
 
     using UnityEngine;
 

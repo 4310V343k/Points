@@ -4,11 +4,12 @@
 
     using CommandSystem;
 
+    using DataTypes;
+
     using Exiled.API.Enums;
     using Exiled.API.Features;
 
-    using global::Points.DataTypes;
-    using global::Points.Internal;
+    using Internal;
 
     using UnityEngine;
 
@@ -38,9 +39,9 @@
             if (PointEditor.UseCrossHair)
             {
                 Physics.Raycast(player.CameraTransform.position, player.CameraTransform.eulerAngles,
-                    out var hit,
+                    out RaycastHit hit,
                     40f, 134217729); // hardcoded but with love
-                
+
                 // this feels wrong but eh
                 Vector3 forward = player.CameraTransform.forward;
                 rotation = new Vector3(-forward.x, forward.y, -forward.z);

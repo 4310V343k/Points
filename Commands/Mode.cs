@@ -4,7 +4,7 @@
 
     using CommandSystem;
 
-    using global::Points.Internal;
+    using Internal;
 
     internal sealed class Mode : ICommand
     {

@@ -1,13 +1,13 @@
 ﻿namespace Points.Internal
 {
-    using System;
     using System.Collections.Generic;
     using System.IO;
 
+    using DataTypes;
+
     using Exiled.API.Features;
 
-    using global::Points.DataTypes;
-    using global::Points.Tools;
+    using Tools;
 
     internal static class PointManager
     {

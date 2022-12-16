@@ -3,13 +3,14 @@
     using System;
     using System.Collections.Generic;
 
+    using DataTypes;
+
     using Exiled.API.Enums;
     using Exiled.API.Features;
     using Exiled.Events;
     using Exiled.Events.Extensions;
 
-    using global::Points.DataTypes;
-    using global::Points.Internal;
+    using Internal;
 
     using MEC;
 

@@ -4,10 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using Exiled.API.Enums;
     using Exiled.API.Features;
-
-    using UnityEngine;
 
     /// <summary>
     ///     This represents a collection of <see cref="RawPoint" /> which are used to make <see cref="FixedPoint" />.
@@ -34,7 +31,7 @@
         /// </summary>
         public void FixData()
         {
-            Log.Debug($"Fixing data for id {this._uniqueId}", Points.Singleton.Config.Debug);
+            Log.Debug($"Fixing data for id {_uniqueId}", Points.Singleton.Config.Debug);
             FixedPoints.Clear();
 
             FixedPoints.Capacity = RawPoints.Count;

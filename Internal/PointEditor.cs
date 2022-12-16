@@ -2,8 +2,9 @@
 {
     using System.IO;
 
-    using global::Points.DataTypes;
-    using global::Points.Tools;
+    using DataTypes;
+
+    using Tools;
 
     internal static class PointEditor
     {
