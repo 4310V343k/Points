@@ -9,7 +9,7 @@
         <AppDesignerFolder>Properties</AppDesignerFolder>
         <RootNamespace>Points</RootNamespace>
         <AssemblyName>0Points</AssemblyName>
-        <TargetFramework>net48</TargetFramework>
+        <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <Deterministic>true</Deterministic>
     </PropertyGroup>
