@@ -21,16 +21,13 @@
     /// </summary>
     public sealed class Points : Plugin<Config>
     {
-        public static Points Singleton;
-        public override Version Version => new Version(1, 3, 0);
+        public override Version Version => new Version(1, 4, 0);
         public override string Author => "Arith && Remindme";
         public override PluginPriority Priority => PluginPriority.First;
-        public override Version RequiredExiledVersion => new Version(5, 0, 0);
+        public override Version RequiredExiledVersion => new Version(6, 0, 0);
 
         public override void OnEnabled()
         {
-            Singleton = this;
-
             Server.ReloadedConfigs += OnReloadedConfigs;
             Server.WaitingForPlayers += LoadSpawnPoints;
 
@@ -44,7 +41,6 @@
 
             OnReloadedConfigs();
 
-            Singleton = null;
             base.OnDisabled();
         }
 
