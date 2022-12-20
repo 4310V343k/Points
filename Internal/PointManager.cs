@@ -30,7 +30,7 @@
                 var filePath = files[i];
                 PointList list = PointIO.Open(filePath);
 
-                Log.Debug($"Got a raw point list: {string.Join(", ", list.RawPoints)}", Points.Singleton.Config.Debug);
+                Log.Debug($"Got a raw point list: {string.Join(", ", list.RawPoints)}");
 
                 PointLists.Add(Path.GetFileNameWithoutExtension(filePath), list);
             }
@@ -43,9 +43,9 @@
         {
             foreach (var list in PointLists)
             {
-                Log.Debug($"Trying to fix data in {list.Key} with points: {string.Join(", ", list.Value.RawPoints)}", Points.Singleton.Config.Debug);
+                Log.Debug($"Trying to fix data in {list.Key} with points: {string.Join(", ", list.Value.RawPoints)}");
                 list.Value.FixData();
-                Log.Debug($"Fixed the data. Fixed points: {string.Join(", ", list.Value.FixedPoints)}", Points.Singleton.Config.Debug);
+                Log.Debug($"Fixed the data. Fixed points: {string.Join(", ", list.Value.FixedPoints)}");
             }
         }
     }

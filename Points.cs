@@ -53,7 +53,7 @@
             Timing.CallDelayed(1f, () =>
             {
                 OnReloadedConfigs();
-                Log.Debug("LoadSpawnPoints", Singleton.Config.Debug);
+                Log.Debug("LoadSpawnPoints");
                 PointManager.SetupFixedPoints();
                 LoadedSpawnPoints?.InvokeSafely();
             });
@@ -71,7 +71,7 @@
                     Log.Error(
                         "WARNING: Edit mode is enabled. Players are now able to use the console to create Points on the server.");
                 else
-                    Log.Debug("Edit mode is disabled.", Config.Debug);
+                    Log.Debug("Edit mode is disabled.");
             }
             else
             {

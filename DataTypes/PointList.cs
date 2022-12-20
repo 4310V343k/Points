@@ -31,7 +31,7 @@
         /// </summary>
         public void FixData()
         {
-            Log.Debug($"Fixing data for id {_uniqueId}", Points.Singleton.Config.Debug);
+            Log.Debug($"Fixing data for id {_uniqueId}");
             FixedPoints.Clear();
 
             FixedPoints.Capacity = RawPoints.Count;
