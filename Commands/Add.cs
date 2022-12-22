@@ -32,28 +32,23 @@
             var name = arguments.Count > 0 ? arguments.At(0).ToLowerInvariant() : string.Empty;
             Player player = Player.Get((CommandSender)sender);
 
-            var scp049Component = player.GameObject.GetComponent<Scp049_2PlayerScript>();
             Vector3 position;
-            Vector3 rotation;
-
             if (PointEditor.UseCrossHair)
             {
                 Physics.Raycast(player.CameraTransform.position, player.CameraTransform.eulerAngles,
                     out RaycastHit hit,
-                    40f, 134217729); // hardcoded but with love
-
-                // this feels wrong but eh
-                Vector3 forward = player.CameraTransform.forward;
-                rotation = new Vector3(-forward.x, forward.y, -forward.z);
+                    40f, 134217729);
                 position = hit.point + Vector3.up * 0.1f;
             }
             else
             {
-                Vector3 forward = scp049Component.plyCam.transform.forward;
-                rotation = new Vector3(-forward.x, forward.y, -forward.z);
                 position = player.Position + Vector3.up * 0.1f;
             }
 
+            
+            Vector3 forward = player.CameraTransform.forward;
+            var rotation = new Vector3(-forward.x, forward.y, -forward.z);
+            
             Room closestRoom = player.CurrentRoom;
             RoomType roomName = closestRoom.Type;
 
