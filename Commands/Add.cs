@@ -32,21 +32,25 @@
             var name = arguments.Count > 0 ? arguments.At(0).ToLowerInvariant() : string.Empty;
             Player player = Player.Get((CommandSender)sender);
 
+            Vector3 forward = player.CameraTransform.forward;
             Vector3 position;
             if (PointEditor.UseCrossHair)
             {
-                Physics.Raycast(player.CameraTransform.position, player.CameraTransform.eulerAngles,
-                    out RaycastHit hit,
-                    40f, 134217729);
-                position = hit.point + Vector3.up * 0.1f;
+                if (Physics.Raycast(player.CameraTransform.position + forward, forward, out RaycastHit hit, 100f))
+                {
+                    position = hit.point + Vector3.up * 0.1f;
+                }
+                else
+                {
+                    response = "Couldn't find a suitable place to place a point!";
+                    return false;
+                }
             }
             else
             {
                 position = player.Position + Vector3.up * 0.1f;
             }
-
             
-            Vector3 forward = player.CameraTransform.forward;
             var rotation = new Vector3(-forward.x, forward.y, -forward.z);
             
             Room closestRoom = player.CurrentRoom;
