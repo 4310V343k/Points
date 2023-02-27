@@ -34,6 +34,7 @@
 
                 PointLists.Add(Path.GetFileNameWithoutExtension(filePath), list);
             }
+            Log.Debug($"Loaded {PointLists.Count} point lists");
         }
 
         /// <summary>

@@ -19,7 +19,6 @@
         internal static bool UseCrossHair = true;
         internal static PointList CurrentLoadedPointList;
         private static string _currentLoadedName;
-        public static bool Enabled { get; set; }
 
 
         internal static bool Save()

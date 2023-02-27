@@ -12,8 +12,6 @@
 
     using Internal;
 
-    using MEC;
-
     using Server = Exiled.Events.Handlers.Server;
 
     /// <summary>
@@ -21,70 +19,43 @@
     /// </summary>
     public sealed class Points : Plugin<Config>
     {
-        public override Version Version => new Version(1, 4, 0);
+        public override Version Version => new Version(1, 5, 0);
         public override string Author => "Arith && Remindme";
         public override PluginPriority Priority => PluginPriority.First;
         public override Version RequiredExiledVersion => new Version(6, 0, 0);
 
         public override void OnEnabled()
         {
-            Server.ReloadedConfigs += OnReloadedConfigs;
-            Server.WaitingForPlayers += LoadSpawnPoints;
+            Server.ReloadedConfigs += ReloadPoints;
+            Server.WaitingForPlayers += ReloadPoints;
 
             base.OnEnabled();
         }
 
         public override void OnDisabled()
         {
-            Server.ReloadedConfigs -= OnReloadedConfigs;
-            Server.WaitingForPlayers -= LoadSpawnPoints;
-
-            OnReloadedConfigs();
+            Server.ReloadedConfigs -= ReloadPoints;
+            Server.WaitingForPlayers -= ReloadPoints;
 
             base.OnDisabled();
         }
 
-        public void LoadSpawnPoints()
+        private static void ReloadPoints()
         {
-            Timing.CallDelayed(1f, () =>
-            {
-                OnReloadedConfigs();
-                Log.Debug("LoadSpawnPoints");
-                PointManager.SetupFixedPoints();
-                LoadedSpawnPoints?.InvokeSafely();
-            });
-        }
-
-        private void OnReloadedConfigs()
-        {
-            if (Config.IsEnabled)
-            {
-                PointManager.LoadData();
-
-                PointEditor.Enabled = Config.EditMode;
-
-                if (Config.EditMode)
-                    Log.Error(
-                        "WARNING: Edit mode is enabled. Players are now able to use the console to create Points on the server.");
-                else
-                    Log.Debug("Edit mode is disabled.");
-            }
-            else
-            {
-                PointEditor.Enabled = false;
-            }
+            PointManager.LoadData();
+            PointManager.SetupFixedPoints();
+            LoadedSpawnPoints?.InvokeSafely();
         }
 
         #region API
 
         /// <summary>
-        ///     This event is invoked after <see cref="PointList" /> is populated (after level generation), and before spawn points
-        ///     are loaded.
+        ///     This event is invoked after <see cref="PointList" /> is populated (after level generation)
         /// </summary>
         public static event Events.CustomEventHandler LoadedSpawnPoints;
 
         /// <summary>
-        ///     This can be acquired any time after WaitingForPlayers or <see cref="LoadedSpawnPoints" />.
+        ///     This can be acquired any time after <see cref="LoadedSpawnPoints" />.
         /// </summary>
         /// <param name="key">The key is the same as the file name that contains your points.</param>
         /// <returns>
