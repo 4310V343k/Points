@@ -19,7 +19,7 @@
     /// </summary>
     public sealed class Points : Plugin<Config>
     {
-        public override Version Version => new Version(1, 5, 0);
+        public override Version Version => new Version(1, 5, 1);
         public override string Author => "Arith && Remindme";
         public override PluginPriority Priority => PluginPriority.First;
         public override Version RequiredExiledVersion => new Version(6, 0, 0);
