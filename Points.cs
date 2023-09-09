@@ -7,8 +7,7 @@
 
     using Exiled.API.Enums;
     using Exiled.API.Features;
-    using Exiled.Events;
-    using Exiled.Events.Extensions;
+    using Exiled.Events.Features;
 
     using Internal;
 
@@ -19,10 +18,10 @@
     /// </summary>
     public sealed class Points : Plugin<Config>
     {
-        public override Version Version => new Version(1, 5, 1);
+        public override Version Version => new Version(1, 6, 0);
         public override string Author => "Arith && Remindme";
         public override PluginPriority Priority => PluginPriority.First;
-        public override Version RequiredExiledVersion => new Version(6, 0, 0);
+        public override Version RequiredExiledVersion => new Version(8, 0, 0);
 
         public override void OnEnabled()
         {
@@ -52,7 +51,7 @@
         /// <summary>
         ///     This event is invoked after <see cref="PointList" /> is populated (after level generation)
         /// </summary>
-        public static event Events.CustomEventHandler LoadedSpawnPoints;
+        public static Event LoadedSpawnPoints;
 
         /// <summary>
         ///     This can be acquired any time after <see cref="LoadedSpawnPoints" />.
