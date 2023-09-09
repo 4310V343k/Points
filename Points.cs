@@ -51,7 +51,7 @@
         /// <summary>
         ///     This event is invoked after <see cref="PointList" /> is populated (after level generation)
         /// </summary>
-        public static Event LoadedSpawnPoints;
+        public static Event LoadedSpawnPoints { get; set; } = new Event();
 
         /// <summary>
         ///     This can be acquired any time after <see cref="LoadedSpawnPoints" />.
